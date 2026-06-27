@@ -30,6 +30,7 @@ def is_admin(user_id):
 @router.message(Command("admin"))
 async def admin_panel(message: Message, state: FSMContext):
     if not is_admin(message.from_user.id):
+        await message.answer("❌ Sizda ruxsat yo'q!")
         return
     await state.clear()
     await message.answer("⚙️ <b>Admin panel</b>", reply_markup=admin_menu(), parse_mode="HTML")
