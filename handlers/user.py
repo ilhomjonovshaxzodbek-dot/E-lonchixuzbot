@@ -225,6 +225,13 @@ async def admin_boglanish(message: Message, state: FSMContext):
 @router.message(AdminYozState.yozish)
 async def admin_ga_yoz(message: Message, state: FSMContext):
     user_id = message.from_user.id
+
+    # Admin bo'lsa limit yo'q
+    if user_id == ADMIN_ID:
+        await state.clear()
+        await message.answer("⚙️ Admin panel", reply_markup=__import__('keyboards.admin_kb', fromlist=['admin_menu']).admin_menu())
+        return
+
     matn = message.text or ""
     harf_son = len(matn)
 
